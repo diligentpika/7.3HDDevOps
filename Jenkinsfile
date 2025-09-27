@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('1. Build') {
             steps {
-                echo '🔨 Stage 1: Build started'
+                echo 'Stage 1: Build started'
                 
                 cleanWs()
                 checkout scm
@@ -38,13 +38,13 @@ pipeline {
         
         stage('2. Test') {
             steps {
-                echo '🧪 Stage 2: Running tests'
+                echo 'Stage 2: Running tests'
                 
                 script {
                     try {
                         sh 'npm test || echo "Some tests failed"'
                     } catch (Exception e) {
-                        echo "⚠️ Test execution failed, creating dummy results..."
+                        echo "Test execution failed, creating dummy results..."
                         sh '''
                             mkdir -p test
                             echo "console.log('Basic test passed');" > test/dummy.test.js
@@ -57,7 +57,7 @@ pipeline {
         
         stage('3. Code Quality') {
             steps {
-                echo '🔍 Stage 3: Code Quality (ESLint)'
+                echo 'Stage 3: Code Quality (ESLint)'
                 
                 script {
                     try {
@@ -85,7 +85,7 @@ pipeline {
         
         stage('4. Security') {
             steps {
-                echo '🔒 Stage 4: Security Audit'
+                echo 'Stage 4: Security Audit'
                 
                 script {
                     try {
@@ -106,7 +106,7 @@ pipeline {
         
         stage('5. Deploy to Staging') {
             steps {
-                echo '🚀 Stage 5: Deploying to Staging'
+                echo 'Stage 5: Deploying to Staging'
                 
                 script {
                     sh 'timeout 10s npm start || echo "Startup simulated"'
@@ -118,7 +118,7 @@ pipeline {
         stage('6. Release to Production') {
             when { anyOf { branch 'main'; branch 'master' } }
             steps {
-                echo '📦 Stage 6: Release to Production'
+                echo 'Stage 6: Release to Production'
                 
                 script {
                     try {
@@ -128,7 +128,7 @@ pipeline {
                         sh 'mkdir -p production && cp -r . production/ || true'
                         sh 'git tag -a v${BUILD_NUMBER} -m "Release version ${BUILD_NUMBER}" || true'
                     } catch (Exception e) {
-                        echo "⚠️ Production approval skipped, simulating deploy"
+                        echo "Production approval skipped, simulating deploy"
                         sh 'mkdir -p production && cp -r . production/ || true'
                     }
                 }
@@ -177,7 +177,7 @@ EOF
     
     post {
         always {
-            echo '🧹 Cleaning up & archiving artifacts'
+            echo 'Cleaning up & archiving artifacts'
             sh '''
                 echo "Build Number: ${BUILD_NUMBER}" > pipeline-summary.txt
                 echo "Timestamp: $(date)" >> pipeline-summary.txt
@@ -186,13 +186,13 @@ EOF
         }
         
         success {
-            echo '🎉 SUCCESS: DevOps Pipeline Completed (All 7 stages)'
+            echo 'SUCCESS: DevOps Pipeline Completed (All 7 stages)'
         }
         failure {
-            echo '❌ Pipeline failed - check logs'
+            echo 'Pipeline failed - check logs'
         }
         unstable {
-            echo '⚠️ Pipeline completed with warnings'
+            echo 'Pipeline completed with warnings'
         }
     }
 }
