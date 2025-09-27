@@ -21,12 +21,8 @@ pipeline {
                 checkout scm
                 
                 sh '''
-                    echo "Node.js version:"
                     node --version
-                    echo "npm version:"
                     npm --version
-                    echo "Repository contents:"
-                    ls -la
                 '''
                 
                 sh '''
@@ -338,29 +334,6 @@ EOF
   }
 }
 EOF
-
-                    echo "Monitoring configuration files created successfully"
-                '''
-                
-                sh '''
-                    echo "Monitoring Stack Summary:"
-                    echo "========================"
-                    echo "✅ Prometheus: Metrics collection configured"
-                    echo "✅ Grafana: Dashboard templates created"
-                    echo "✅ AlertManager: Alert rules defined"
-                    echo "✅ Application: Health monitoring enabled"
-                    echo ""
-                    echo "Monitoring endpoints:"
-                    echo "- Prometheus: http://localhost:9090"
-                    echo "- Grafana: http://localhost:3001"
-                    echo "- Application Health: http://localhost:3000/health"
-                    echo ""
-                    echo "Alert conditions configured:"
-                    echo "- Application Down (Critical)"
-                    echo "- High Response Time (Warning)"
-                    echo ""
-                    echo "Monitoring setup completed successfully!"
-                '''
             }
             post {
                 always {
@@ -392,16 +365,15 @@ EOF
         success {
             echo ''
             echo '🎉 SUCCESS: DevOps Pipeline Completed Successfully!'
-            echo '=================================================='
             echo ''
             echo 'All 7 Stages Executed:'
-            echo '1. ✅ Build - Dependencies installed, artifacts created'
-            echo '2. ✅ Test - Unit tests executed and validated'
-            echo '3. ✅ Code Quality - ESLint analysis performed'
-            echo '4. ✅ Security - Vulnerability scanning completed'
-            echo '5. ✅ Deploy - Staging environment deployment'
-            echo '6. ✅ Release - Production deployment simulation'
-            echo '7. ✅ Monitoring - Full monitoring stack configured'
+            echo '1. Build - Dependencies installed, artifacts created'
+            echo '2. Test - Unit tests executed and validated'
+            echo '3. Code Quality - ESLint analysis performed'
+            echo '4. Security - Vulnerability scanning completed'
+            echo '5. Deploy - Staging environment deployment'
+            echo '6. Release - Production deployment simulation'
+            echo '7. Monitoring - Full monitoring stack configured'
             echo ''
             echo 'Pipeline Metrics:'
             echo '- Build Number: ' + env.BUILD_NUMBER
@@ -413,17 +385,14 @@ EOF
             echo '- Review archived artifacts'
             echo '- Test monitoring configurations'
             echo '- Document pipeline implementation'
-            echo '=================================================='
         }
         
         failure {
             echo 'Pipeline execution encountered issues'
-            echo 'Check the console output above for details'
         }
         
         unstable {
             echo 'Pipeline completed with warnings'
-            echo 'Some non-critical issues were encountered'
         }
     }
 }
