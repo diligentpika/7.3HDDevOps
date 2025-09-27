@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/diligentpika/7.3HDDevOps.git'
+                    url: 'https://github.com/diligentpika/7.3HDDevOps'
             }
         }
 
