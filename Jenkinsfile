@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        NODE_VERSION = '18'
+        NODE_VERSION = 'NodeJS-18'
         SONAR_PROJECT_KEY = 'devops-pipeline-demo'
         STAGING_PORT = '3001'
         PROD_PORT = '3000'
